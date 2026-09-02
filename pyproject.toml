@@ -1,0 +1,98 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cpt-rec"
+version = "1.0.0"
+description = "CPT/HCPCS code recommendation from clinical notes: a comparative evaluation of AI methods"
+authors = [{ name = "Qingyuan Song" }]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10,<3.13"
+keywords = ["clinical-nlp", "medical-coding", "cpt", "hcpcs", "information-retrieval", "mimic-iv"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+# Base install is CPU-only on purpose: corpus preparation, BM25 retrieval,
+# evaluation, and the benchmark export all run without a GPU. Add `--extra gpu`
+# for the neural systems (M2, M5, M6) and `--extra serve` to host a local
+# open-weights model for M3/M4/M5.
+dependencies = [
+    "pandas>=2.2,<3",
+    "numpy>=1.26,<3",
+    "tqdm>=4.66",
+    "openai>=1.40,<2",
+    "scikit-learn>=1.4,<2",
+    "scipy>=1.11,<2",
+    "tiktoken>=0.7",
+    "rank_bm25>=0.2.2",
+    "pyarrow>=15",
+]
+
+[project.optional-dependencies]
+gpu = [
+    "torch>=2.7,<2.8",
+    "transformers>=4.53,<5",
+    # transformers refuses to construct a `Trainer` without accelerate; only M2
+    # uses Trainer (the verifier trains through its own loop).
+    "accelerate>=1.0,<2",
+    # LoRA adapters for M5; imported lazily inside its train/merge subcommands.
+    "peft>=0.14,<1",
+]
+# Optional: serve an open-weights model behind an OpenAI-compatible endpoint so
+# M3/M4/M5 can run with no external API. Pinned in the same lock as `gpu` so the
+# two torch requirements cannot diverge.
+serve = [
+    "vllm>=0.9,<0.11",
+]
+dev = [
+    "pytest>=8",
+]
+
+[project.scripts]
+# --- corpus preparation -------------------------------------------------
+cptrec-split-train-test = "cpt_rec.common.preprocess.split_train_test:main"
+cptrec-subsample-splits = "cpt_rec.common.preprocess.subsample_splits:main"
+cptrec-normalize-labels = "cpt_rec.common.preprocess.label_normalizer:main"
+cptrec-scrub-leakage = "cpt_rec.common.preprocess.code_leakage_scrubber:main"
+cptrec-make-snippets = "cpt_rec.common.retriever.make_op_note_snippet:main"
+# --- sectionizer (induced once per corpus, then frozen) -----------------
+cptrec-extract-headers = "cpt_rec.common.sectionizer.extract_headers:main"
+cptrec-build-pattern-config = "cpt_rec.common.sectionizer.build_pattern_config:main"
+cptrec-split-op-notes = "cpt_rec.common.sectionizer.split_op_notes:main"
+# --- knowledge base -----------------------------------------------------
+cptrec-build-code-history = "cpt_rec.common.knowledge.build_code_history:main"
+cptrec-build-kb-index = "cpt_rec.baselines.kb_index:main"
+# --- compared systems M1-M5 (Table III) ---------------------------------
+cptrec-m1-bm25-knn = "cpt_rec.baselines.m1_bm25_knn:main"
+cptrec-m2-longformer = "cpt_rec.baselines.m2_longformer_label_attn:main"
+cptrec-m3-zeroshot = "cpt_rec.baselines.m3_zeroshot_llm:main"
+cptrec-m4-rag = "cpt_rec.baselines.m4_exemplar_rag:main"
+cptrec-m5-sft = "cpt_rec.baselines.m5_lora_sft:main"
+# --- M6: the retrieve-and-verify system ---------------------------------
+cptrec-verifier-train = "cpt_rec.pipeline.crossencoder.train_verifier:main"
+cptrec-verifier-predict = "cpt_rec.pipeline.crossencoder.predict_verifier:main"
+cptrec-calibrate = "cpt_rec.pipeline.decode.calibrate:main"
+cptrec-constrained-decode = "cpt_rec.pipeline.decode.constrained_decode:main"
+# --- evaluation and analysis --------------------------------------------
+cptrec-evaluate = "cpt_rec.common.evaluation.harness:main"
+cptrec-val-cohort = "cpt_rec.common.evaluation.strata:main"
+cptrec-sibling-analysis = "cpt_rec.common.evaluation.sibling_analysis:main"
+cptrec-grounding-audit = "cpt_rec.evidence.grounding_audit:main"
+# --- two-corpus benchmark -----------------------------------------------
+cptrec-bench-corpora = "cpt_rec.benchmark.corpora:main"
+cptrec-bench-build-mimic = "cpt_rec.benchmark.build_mimic:main"
+cptrec-bench-export = "cpt_rec.benchmark.export:main"
+cptrec-bench-collate = "cpt_rec.benchmark.collate:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]

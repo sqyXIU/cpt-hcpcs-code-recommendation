@@ -1,0 +1,170 @@
+{
+  "version": 1,
+  "taxonomy": "mimic_discharge",
+  "patterns": [
+    {
+      "section": "Patient Identification",
+      "regex": "\\bName\\s*:\\s*"
+    },
+    {
+      "section": "Patient Identification",
+      "regex": "\\bUnit\\s+No\\s*:\\s*"
+    },
+    {
+      "section": "Patient Identification",
+      "regex": "\\bDate\\s+of\\s+Birth\\s*:\\s*"
+    },
+    {
+      "section": "Patient Identification",
+      "regex": "\\bSex\\s*:\\s*"
+    },
+    {
+      "section": "Admission & Discharge Dates",
+      "regex": "\\bAdmission\\s+Date\\s*:\\s*"
+    },
+    {
+      "section": "Admission & Discharge Dates",
+      "regex": "\\bDischarge\\s+Date\\s*:\\s*"
+    },
+    {
+      "section": "Service & Attending",
+      "regex": "\\bService\\s*:\\s*"
+    },
+    {
+      "section": "Service & Attending",
+      "regex": "\\bAttending\\s*:\\s*"
+    },
+    {
+      "section": "Allergies and Intolerances",
+      "regex": "\\bAllergies\\s*:\\s*"
+    },
+    {
+      "section": "Allergies and Intolerances",
+      "regex": "\\bAllergies\\s+and\\s+Adverse\\s+Reactions\\s*:\\s*"
+    },
+    {
+      "section": "Chief Complaint",
+      "regex": "\\bChief\\s+Complaint\\s*:\\s*"
+    },
+    {
+      "section": "History of Present Illness",
+      "regex": "\\bHistory\\s+of\\s+Present\\s+Illness\\s*:\\s*"
+    },
+    {
+      "section": "Admission Diagnosis",
+      "regex": "\\bAdmi(?:ssion|tting)\\s+Diagnosis\\b[^\\n:]*:\\s*"
+    },
+    {
+      "section": "Past Medical History",
+      "regex": "\\bPast\\s+Medical\\s+History\\s*:\\s*"
+    },
+    {
+      "section": "Past Surgical History",
+      "regex": "\\bPast\\s+Surgical\\s+History\\s*:\\s*"
+    },
+    {
+      "section": "Family History",
+      "regex": "\\bFamily\\s+History\\s*:\\s*"
+    },
+    {
+      "section": "Social History",
+      "regex": "\\bSocial\\s+History\\s*:\\s*"
+    },
+    {
+      "section": "Review of Systems",
+      "regex": "\\bReview\\s+of\\s+Systems\\s*:\\s*"
+    },
+    {
+      "section": "Physical Exam",
+      "regex": "\\bPhysical\\s+Exam(?:ination)?\\s*:\\s*"
+    },
+    {
+      "section": "Physical Exam",
+      "regex": "\\bAdmission\\s+Physical\\s+Exam(?:ination)?\\s*:\\s*"
+    },
+    {
+      "section": "Results",
+      "regex": "\\bPertinent\\s+Results\\s*:\\s*"
+    },
+    {
+      "section": "Results",
+      "regex": "\\bLaboratory\\s+Data\\s*:\\s*"
+    },
+    {
+      "section": "Procedures",
+      "regex": "\\bMajor\\s+Surgical\\s+or\\s+Invasive\\s+Procedures?\\s*:\\s*"
+    },
+    {
+      "section": "Procedures",
+      "regex": "\\bProcedures?\\s+Performed\\s*:\\s*"
+    },
+    {
+      "section": "Hospital Consultations",
+      "regex": "\\bConsultations?\\s*:\\s*"
+    },
+    {
+      "section": "Hospital Consultations",
+      "regex": "\\bConsults?\\s+Obtained\\s*:\\s*"
+    },
+    {
+      "section": "Hospital Course",
+      "regex": "\\bBrief\\s+Hospital\\s+Course\\s*:\\s*"
+    },
+    {
+      "section": "Hospital Course",
+      "regex": "\\bHospital\\s+Course\\s*:\\s*"
+    },
+    {
+      "section": "Hospital Discharge Physical",
+      "regex": "\\bDischarge\\s+Physical\\s+Exam(?:ination)?\\s*:\\s*"
+    },
+    {
+      "section": "Discharge Diagnosis",
+      "regex": "\\bDischarge\\s+Diagnos[ei]s\\b[^\\n:]*:\\s*"
+    },
+    {
+      "section": "Discharge Condition",
+      "regex": "\\bDischarge\\s+Condition\\s*:\\s*"
+    },
+    {
+      "section": "Functional Status",
+      "regex": "\\bFunctional\\s+Status\\s*:\\s*"
+    },
+    {
+      "section": "Functional Status",
+      "regex": "\\bActivity\\s+Status\\s*:\\s*"
+    },
+    {
+      "section": "Medications on Admission",
+      "regex": "\\bMedications\\s+on\\s+Admission\\s*:\\s*"
+    },
+    {
+      "section": "Discharge Medications",
+      "regex": "\\bDischarge\\s+Medications?\\s*:\\s*"
+    },
+    {
+      "section": "Discharge Disposition",
+      "regex": "\\bDischarge\\s+Disposition\\s*:\\s*"
+    },
+    {
+      "section": "Discharge Disposition",
+      "regex": "\\bDischarged?\\s+to\\s*:\\s*"
+    },
+    {
+      "section": "Hospital Discharge Instructions",
+      "regex": "\\bDischarge\\s+Instructions\\s*:\\s*"
+    },
+    {
+      "section": "Hospital Discharge Instructions",
+      "regex": "\\bFollow-?up\\s+Instructions\\s*:\\s*"
+    },
+    {
+      "section": "Plan of Treatment",
+      "regex": "\\bPlan\\s+of\\s+Treatment\\s*:\\s*"
+    },
+    {
+      "section": "Plan of Treatment",
+      "regex": "\\bDischarge\\s+Plan\\s*:\\s*"
+    }
+  ]
+}

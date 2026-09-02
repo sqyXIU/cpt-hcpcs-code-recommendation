@@ -1,0 +1,51 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the preprint below."
+title: "CPT/HCPCS procedure-code recommendation: reference implementation"
+abstract: >-
+  Reference implementation and benchmark harness for "CPT/HCPCS Code
+  Recommendation from Clinical Notes: A Comparative Evaluation of AI Methods".
+  Six systems - lexical retrieval, a long-document neural classifier, two
+  prompted frontier-LLM configurations, a supervised fine-tune, and a staged
+  retrieve-and-verify pipeline - evaluated across two clinical corpora.
+type: software
+license: MIT
+repository-code: "https://github.com/sqyXIU/cpt-hcpcs-code-recommendation"
+authors:
+  - family-names: Song
+    given-names: Qingyuan
+    affiliation: Vanderbilt University
+keywords:
+  - clinical natural language processing
+  - medical coding
+  - CPT
+  - HCPCS
+  - information retrieval
+  - large language models
+
+preferred-citation:
+  type: article
+  title: "CPT/HCPCS Code Recommendation from Clinical Notes: A Comparative Evaluation of AI Methods"
+  journal: medRxiv
+  year: 2026
+  month: 8
+  doi: "10.64898/2026.08.29.26361731"
+  url: "https://www.medrxiv.org/content/10.64898/2026.08.29.26361731v1"
+  authors:
+    - family-names: Song
+      given-names: Qingyuan
+      affiliation: Vanderbilt University
+    - family-names: Ni
+      given-names: Congning
+      affiliation: Vanderbilt University Medical Center
+    - family-names: Liu
+      given-names: Weixin
+      affiliation: Vanderbilt University
+    - family-names: Li
+      given-names: Yike
+      affiliation: Vanderbilt University Medical Center
+    - family-names: Malin
+      given-names: Bradley A.
+      affiliation: Vanderbilt University Medical Center
+    - family-names: Yin
+      given-names: Zhijun
+      affiliation: Vanderbilt University Medical Center

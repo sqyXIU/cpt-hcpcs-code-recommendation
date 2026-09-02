@@ -1,0 +1,76 @@
+# =====================================================================
+# This repository is PUBLIC. No clinical text, no patient-level record,
+# and no licensed code descriptor may ever be committed to it.
+#
+# The rule below is DEFAULT-DENY: everything under data/ is ignored, and
+# individual public-domain files are re-admitted one at a time. Run outputs
+# are denied outright -- this repo ships code and instructions, not results.
+# If you need to add a file that git refuses to stage, the fix is to add an
+# explicit allowlist line here after confirming the file contains no note
+# text, no patient or encounter identifier, and no licensed descriptor --
+# never `git add -f`.
+# =====================================================================
+
+# --- 1. corpora: nothing derived from a clinical corpus, at any depth ---
+data/**
+!data/**/
+!data/README.md
+!data/kb/README.md
+# CMS public domain: HCPCS Level II descriptors only.
+!data/kb/hcpcs_level2_public.csv
+# Column contract, no data.
+!data/kb/kb_schema.json
+!data/sectionizer/README.md
+# Taxonomy constants, no note text.
+!data/sectionizer/discharge_sections.json
+
+# Belt and braces: these names must never be tracked wherever they appear.
+*note*.csv
+*notes*.csv
+*_notes.jsonl
+*headers_by_note*
+op_report*
+discharge*.csv
+!data/sectionizer/discharge_sections.json
+
+# --- 2. run outputs: never tracked ---
+# This repository is code + instructions. Metrics, predictions, checkpoints
+# and logs produced by a run stay on the machine that produced them: the
+# aggregates are corpus-derived and the row-level files are keyed by note
+# identifier. `cptrec-bench-export` writes under outputs/ by default;
+# results/ is denied too because it is the obvious place to copy an export.
+outputs/
+results/
+runs/
+predictions*.csv
+predictions*.npz
+*ledger*.jsonl
+*samples.csv
+*rating_sheet.csv
+judge*.csv
+
+# --- 3. model weights and caches ---
+models/
+*.pt
+*.bin
+*.safetensors
+*.faiss
+*.pkl
+.cache/
+
+# --- 4. environment ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- 5. editor / OS ---
+.DS_Store
+.idea/
+.vscode/
+*.swp

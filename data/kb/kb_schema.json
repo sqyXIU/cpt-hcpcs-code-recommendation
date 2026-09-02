@@ -1,0 +1,45 @@
+{
+  "$comment": "Column contract for a cpt_rec knowledge-base CSV. See data/kb/README.md.",
+  "primary_key": [
+    "code"
+  ],
+  "columns": {
+    "code_system": {
+      "required": true,
+      "values": [
+        "CPT",
+        "HCPCS"
+      ],
+      "description": "Which code set the row belongs to."
+    },
+    "code": {
+      "required": true,
+      "description": "Uppercase, modifier-free base code, e.g. 45378 or A0021."
+    },
+    "code_description": {
+      "required": true,
+      "description": "Official short/long descriptor for the code."
+    },
+    "code_lay_term": {
+      "required": false,
+      "description": "Optional long-form plain-language description. Improves dense retrieval; the pipeline runs without it. Commonly licensed -- supply your own or leave empty."
+    }
+  },
+  "repeating_columns": {
+    "code_range_{i}": {
+      "i": "1..6",
+      "required": false,
+      "description": "Hierarchy node at level i, e.g. 45300-45399."
+    },
+    "code_range_{i}_description": {
+      "i": "1..6",
+      "required": false,
+      "description": "Human-readable name of that node."
+    }
+  },
+  "notes": [
+    "Levels need not all be populated; code_range_deepest resolves the most specific non-empty node.",
+    "Rows are looked up by `code`, so duplicates are an error.",
+    "Descriptor text for CPT (Level I) is copyrighted by the AMA and is NOT distributed with this repository."
+  ]
+}
