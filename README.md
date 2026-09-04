@@ -28,6 +28,19 @@ uv sync --extra gpu --extra serve --extra dev
 > **Never run a bare `uv sync`** — torch lives in the `gpu` extra, so a bare
 > sync uninstalls your GPU stack. Always pass the extras.
 
+`uv.lock` is committed, and it is the environment the paper's numbers were
+produced in — 172 packages, resolved once and not re-resolved since. The pins
+that matter most are **numpy 2.2.6, torch 2.7.1, transformers 4.57.6 and
+vllm 0.10.1.1**; the numpy-2 boundary in particular is load-bearing, because the
+cached artifacts the pipeline writes are pickles. `uv sync` honours the lock by
+default, so the command above reproduces that environment rather than resolving
+a fresh one. Add `--locked` to make a drifted lock an error instead of a silent
+re-resolution.
+
+Changing a pin is a deliberate act: edit `pyproject.toml`, then `uv lock` and
+commit the result. Installing into the environment with `pip` leaves the lock
+describing something that no longer exists.
+
 ```bash
 pytest -q
 ```
